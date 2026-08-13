@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>潍坊风筝人格测试</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="shell">
+
+    <!-- 首页 -->
+    <div class="view active" id="start">
+      <div class="start-inner">
+        <div class="start-emoji">🪁</div>
+        <h1 class="start-title">潍坊风筝人格测试</h1>
+        <p class="start-sub">你的人生姿态，藏在一只风筝里</p>
+        <p class="start-desc">14 道情景题 · 走进一次说走就走的风筝体验</p>
+        <button class="btn-primary" id="btn-start">开始测试</button>
+      </div>
+    </div>
+
+    <!-- 答题 -->
+    <div class="view" id="quiz">
+      <div class="quiz-top">
+        <div class="progress-track"><div class="progress-bar" id="progress-bar"></div></div>
+        <div class="progress-text" id="progress-text">1 / 14</div>
+      </div>
+      <div class="quiz-body">
+        <div class="q-title" id="q-title"></div>
+        <div class="q-text" id="q-text"></div>
+        <div class="q-options" id="q-options"></div>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn-ghost" id="btn-prev">上一题</button>
+        <button class="btn-primary" id="btn-next">下一题</button>
+      </div>
+    </div>
+
+    <!-- 结果 -->
+    <div class="view" id="result">
+      <div class="result-headline" id="result-headline"></div>
+      <div class="result-sub" id="result-sub"></div>
+      <div class="result-section-title">你的做事方式 · 工具</div>
+      <div id="tool-card"></div>
+      <div class="result-section-title">你的人生姿态 · 风筝</div>
+      <div id="kite-card"></div>
+      <div class="easter" id="easter"></div>
+      <button class="btn-primary" id="btn-poster">生成我的专属海报</button>
+      <button class="btn-link btn-retest">再测一次</button>
+    </div>
+
+    <!-- 海报 -->
+    <div class="view" id="poster">
+      <div class="poster-tip">👇 长按图片保存到相册</div>
+      <img class="poster-img" id="poster-img" alt="我的风筝人格海报">
+      <canvas id="poster-canvas" style="display:none"></canvas>
+      <div class="poster-actions">
+        <button class="btn-primary" id="btn-save">保存图片</button>
+        <button class="btn-link btn-retest">再测一次</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

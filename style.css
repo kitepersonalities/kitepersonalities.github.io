@@ -1,0 +1,181 @@
+/* ============ 潍坊风筝人格测试 · 样式 ============ */
+
+:root {
+  --sky: #4A90D9;
+  --sky-deep: #3B5BDB;
+  --sand: #F7F3EC;
+  --ink: #2B2B33;
+  --ink-soft: #6b6b76;
+  --accent: #E8543A;
+  --line: #ece7de;
+  --card: #ffffff;
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, #eaf3fb 0%, var(--sand) 40%, var(--sand) 100%);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.shell {
+  max-width: 520px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 24px 20px 40px;
+}
+
+.view { display: none; }
+.view.active { display: block; }
+
+/* ---------- 按钮 ---------- */
+button { font-family: inherit; cursor: pointer; border: none; }
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, var(--sky) 0%, var(--sky-deep) 100%);
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(59, 91, 219, 0.28);
+  transition: transform .1s ease, box-shadow .2s ease;
+}
+.btn-primary:active { transform: translateY(1px); }
+.btn-primary:disabled { opacity: .45; box-shadow: none; cursor: not-allowed; }
+
+.btn-ghost {
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  background: transparent;
+  border-radius: 999px;
+}
+.btn-ghost:disabled { opacity: .35; cursor: not-allowed; }
+
+.btn-link {
+  display: block;
+  margin: 14px auto 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- 首页 ---------- */
+#start { min-height: 100vh; display: none; }
+#start.active { display: flex; align-items: center; justify-content: center; }
+
+.start-inner { text-align: center; width: 100%; padding: 20px 0; }
+.start-emoji { font-size: 88px; line-height: 1; margin-bottom: 22px; animation: float 3s ease-in-out infinite; }
+.start-title { font-size: 32px; font-weight: 700; letter-spacing: 1px; }
+.start-sub { margin-top: 12px; font-size: 16px; color: var(--ink-soft); }
+.start-desc { margin: 26px 0 34px; font-size: 14px; color: var(--ink-soft); }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ---------- 答题 ---------- */
+.quiz-top { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+.progress-track { flex: 1; height: 8px; background: rgba(0,0,0,.07); border-radius: 999px; overflow: hidden; }
+.progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--sky), var(--sky-deep)); border-radius: 999px; transition: width .3s ease; }
+.progress-text { font-size: 13px; color: var(--ink-soft); white-space: nowrap; }
+
+.q-title {
+  display: inline-block;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--sky-deep);
+  background: rgba(59, 91, 219, 0.08);
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.q-text { font-size: 19px; line-height: 1.7; font-weight: 500; margin-bottom: 24px; }
+
+.q-options { display: flex; flex-direction: column; gap: 12px; }
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  padding: 16px;
+  background: var(--card);
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  box-shadow: 0 3px 12px rgba(0,0,0,.05);
+  transition: border-color .15s ease, transform .1s ease;
+}
+.option:active { transform: scale(.99); }
+.option.selected { border-color: var(--sky-deep); }
+
+.opt-key {
+  flex: 0 0 auto;
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 700;
+  color: var(--ink-soft);
+  background: var(--sand);
+  border-radius: 8px;
+}
+.option.selected .opt-key { color: #fff; background: var(--sky-deep); }
+.opt-text { font-size: 16px; line-height: 1.6; color: var(--ink); }
+
+.quiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; }
+.quiz-nav .btn-primary { width: auto; padding: 14px 40px; }
+
+/* ---------- 结果 ---------- */
+#result { padding-top: 12px; }
+.result-headline { font-size: 34px; font-weight: 800; text-align: center; letter-spacing: 1px; }
+.result-sub { text-align: center; margin-top: 8px; font-size: 16px; color: var(--ink-soft); }
+
+.result-section-title { margin: 28px 0 12px; font-size: 14px; font-weight: 600; color: var(--ink-soft); }
+
+.trait-card {
+  position: relative;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.05);
+  border-left: 5px solid var(--c, var(--sky));
+}
+.trait-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.trait-emoji { font-size: 28px; line-height: 1; }
+.trait-name { font-size: 17px; font-weight: 700; }
+.trait-tagline { font-size: 13px; color: var(--c, var(--sky-deep)); font-weight: 600; }
+.trait-desc { font-size: 15px; line-height: 1.75; color: #3d3d46; }
+
+.easter { margin-top: 8px; font-size: 14px; color: var(--accent); text-align: center; min-height: 20px; }
+
+#result .btn-primary { margin-top: 24px; }
+
+/* ---------- 海报 ---------- */
+#poster { text-align: center; padding-top: 8px; }
+.poster-tip { font-size: 14px; color: var(--ink-soft); margin-bottom: 14px; }
+.poster-img {
+  width: 100%;
+  max-width: 375px;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(0,0,0,.18);
+}
+.poster-actions { max-width: 375px; margin: 20px auto 0; }
+.poster-actions .btn-primary { width: 100%; }
+
+/* ---------- 桌面微调 ---------- */
+@media (min-width: 600px) {
+  .shell { padding-top: 48px; }
+  .option { padding: 18px 20px; }
+}
