@@ -17,7 +17,7 @@
 html, body {
   font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
   color: var(--ink);
-  background: linear-gradient(180deg, #cfe4f6 0%, #eaf3fb 45%, #f8fafc 100%);
+  background: linear-gradient(180deg, #bcd7ef 0%, #e3effa 50%, #f7fafd 100%);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
@@ -85,22 +85,25 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .ornament.flip { transform: rotate(180deg); }
 
 .kite-cloud {
-  position: relative;
-  height: 360px;
-  margin: 16px auto 2px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px 8px;
+  align-items: center;
+  justify-items: center;
+  margin: 16px auto 12px;
+  padding: 0 6px;
 }
 .cloud-kite {
-  position: absolute;
   object-fit: contain;
   filter: drop-shadow(0 10px 16px rgba(150, 90, 30, .16));
   animation: kite-float 4s ease-in-out infinite;
 }
-.ck-1 { width: 160px; top: 0; left: 0; rotate: -5deg; }
-.ck-2 { width: 82px; top: 2px; right: 4%; rotate: 6deg; animation-delay: .4s; }
-.ck-3 { width: 92px; top: 132px; left: 4%; rotate: -4deg; animation-delay: .8s; }
-.ck-4 { width: 132px; top: 118px; right: 2%; rotate: 5deg; animation-delay: 1.2s; }
-.ck-5 { width: 118px; top: 260px; left: 8%; rotate: -7deg; animation-delay: .2s; }
-.ck-6 { width: 86px; top: 268px; right: 8%; rotate: 4deg; animation-delay: .6s; }
+.ck-1 { width: 92%; max-width: 150px; rotate: -5deg; }
+.ck-2 { width: 72%; max-width: 82px; rotate: 6deg; animation-delay: .4s; }
+.ck-3 { width: 82%; max-width: 92px; rotate: -4deg; animation-delay: .8s; }
+.ck-4 { width: 95%; max-width: 132px; rotate: 5deg; animation-delay: 1.2s; }
+.ck-5 { width: 88%; max-width: 116px; rotate: -7deg; animation-delay: .2s; }
+.ck-6 { width: 76%; max-width: 86px; rotate: 4deg; animation-delay: .6s; }
 
 @keyframes kite-float {
   0%, 100% { translate: 0 0; }
