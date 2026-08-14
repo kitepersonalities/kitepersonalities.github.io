@@ -196,10 +196,6 @@ function buildPoster() {
   ctx.font = '500 34px "PingFang SC", "Microsoft YaHei", sans-serif';
   ctx.fillText(`${toolR.top.tagline}，${kiteR.top.tagline}`, W / 2, 780);
 
-  // 关键词标签
-  const tags = [...toolR.top.keywords, ...kiteR.top.keywords];
-  drawTags(ctx, tags, W / 2, 860);
-
   // 底部
   ctx.fillStyle = 'rgba(255,255,255,0.9)';
   ctx.font = '500 30px "PingFang SC", "Microsoft YaHei", sans-serif';
@@ -210,25 +206,6 @@ function buildPoster() {
 
   // 转成图片
   document.getElementById('poster-img').src = canvas.toDataURL('image/png');
-}
-
-function drawTags(ctx, tags, cx, cy) {
-  const padX = 20, h = 52, gap = 14;
-  ctx.font = '500 27px "PingFang SC", "Microsoft YaHei", sans-serif';
-  const widths = tags.map(t => ctx.measureText(t).width + padX * 2);
-  const total = widths.reduce((a, b) => a + b, 0) + gap * (tags.length - 1);
-
-  let x = cx - total / 2;
-  const y = cy;
-  tags.forEach((t, i) => {
-    const w = widths[i];
-    roundRect(ctx, x, y - h / 2, w, h, h / 2);
-    ctx.fillStyle = 'rgba(255,255,255,0.22)';
-    ctx.fill();
-    ctx.fillStyle = '#ffffff';
-    ctx.fillText(t, x + w / 2, y + 2);
-    x += w + gap;
-  });
 }
 
 function roundRect(ctx, x, y, w, h, r) {
