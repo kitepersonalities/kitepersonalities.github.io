@@ -17,7 +17,7 @@
 html, body {
   font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
   color: var(--ink);
-  background: linear-gradient(180deg, #eaf3fb 0%, var(--sand) 40%, var(--sand) 100%);
+  background: linear-gradient(180deg, #F8EFDB 0%, #F2E5C8 55%, #F2E5C8 100%);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
@@ -70,19 +70,69 @@ button { font-family: inherit; cursor: pointer; border: none; }
   text-underline-offset: 3px;
 }
 
-/* ---------- 首页 ---------- */
+/* ---------- 首页（潍坊传统风） ---------- */
 #start { min-height: 100vh; display: none; }
 #start.active { display: flex; align-items: center; justify-content: center; }
 
-.start-inner { text-align: center; width: 100%; padding: 20px 0; }
-.start-emoji { font-size: 88px; line-height: 1; margin-bottom: 22px; animation: float 3s ease-in-out infinite; }
-.start-title { font-size: 32px; font-weight: 700; letter-spacing: 1px; }
-.start-sub { margin-top: 12px; font-size: 16px; color: var(--ink-soft); }
-.start-desc { margin: 26px 0 34px; font-size: 14px; color: var(--ink-soft); }
+.start-frame { text-align: center; width: 100%; padding: 26px 0; }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+.ornament {
+  display: block;
+  width: min(320px, 88%);
+  margin: 0 auto;
+  opacity: .9;
+}
+.ornament.flip { transform: rotate(180deg); }
+
+.kite-scene { margin: 22px auto 6px; }
+.kite {
+  width: min(220px, 58%);
+  height: auto;
+  animation: kite-float 3.6s ease-in-out infinite;
+  filter: drop-shadow(0 10px 16px rgba(150, 90, 30, .18));
+}
+.kite-body { fill: #C73E2B; stroke: #E7B84B; stroke-width: 3; }
+.kite-bone { stroke: #E7B84B; stroke-width: 2.5; }
+.kite-tail { fill: none; stroke: #C73E2B; stroke-width: 3; stroke-linecap: round; }
+.kite-motif { fill: #2F7D6D; }
+.kite-hub { fill: #E7B84B; }
+
+@keyframes kite-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-9px) rotate(2deg); }
+}
+
+.start-title {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #B32D1F;
+}
+
+.start-intro {
+  margin: 20px auto 30px;
+  font-size: 16px;
+  line-height: 1.9;
+  color: #5a4632;
+}
+.start-intro p { margin: 0 0 4px; }
+.intro-ask {
+  margin-top: 10px !important;
+  font-size: 18px;
+  font-weight: 700;
+  color: #B32D1F;
+}
+
+#start .btn-primary {
+  background: linear-gradient(135deg, #D84A2F 0%, #B32D1F 100%);
+  box-shadow: 0 8px 20px rgba(179, 45, 31, .3);
+}
+
+.start-foot {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #a08c6b;
+  letter-spacing: 1px;
 }
 
 /* ---------- 答题 ---------- */
