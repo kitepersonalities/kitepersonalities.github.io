@@ -153,8 +153,8 @@ async function buildPoster() {
   const toolR = decide(TOOLS, rates);
   const kiteR = decide(KITES, rates);
 
-  const toolItem = toolR.tie ? `${toolR.top.item}·${toolR.second.item}` : toolR.top.item;
-  const kiteItem = kiteR.tie ? `${kiteR.top.item}·${kiteR.second.item}` : kiteR.top.item;
+  const toolItem = toolR.top.item;
+  const kiteItem = kiteR.top.item;
 
   const W = 750, H = 1334, S = 2;
   const canvas = document.getElementById('poster-canvas');
@@ -169,60 +169,53 @@ async function buildPoster() {
     loadImg(`images/${kiteR.top.img}.webp`),
   ]);
 
-  // 背景渐变
+  // 背景渐变（风筝在前 → 工具）
   const g = ctx.createLinearGradient(0, 0, W, H);
-  g.addColorStop(0, toolR.top.color);
-  g.addColorStop(1, kiteR.top.color);
+  g.addColorStop(0, kiteR.top.color);
+  g.addColorStop(1, toolR.top.color);
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, W, H);
 
   // 顶部柔光
-  const sheen = ctx.createRadialGradient(W / 2, 80, 20, W / 2, 80, 600);
-  sheen.addColorStop(0, 'rgba(255,255,255,0.25)');
+  const sheen = ctx.createRadialGradient(W / 2, 60, 20, W / 2, 60, 620);
+  sheen.addColorStop(0, 'rgba(255,255,255,0.22)');
   sheen.addColorStop(1, 'rgba(255,255,255,0)');
   ctx.fillStyle = sheen;
-  ctx.fillRect(0, 0, W, 480);
+  ctx.fillRect(0, 0, W, 500);
+
+  // 大风筝图（主体，居中偏上，向下延伸）
+  drawContain(ctx, kiteImg, W / 2, 460, 600);
+
+  // 小工具图（右下点缀）
+  drawContain(ctx, toolImg, W * 0.62, 780, 180);
+
+  // 渐变蒙版：让图在文字区域渐隐
+  const mask = ctx.createLinearGradient(0, 600, 0, 1140);
+  mask.addColorStop(0, 'rgba(0,0,0,0)');
+  mask.addColorStop(1, 'rgba(0,0,0,0.62)');
+  ctx.fillStyle = mask;
+  ctx.fillRect(0, 600, W, 540);
 
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
 
   // 测试名
-  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.fillStyle = 'rgba(255,255,255,0.94)';
   ctx.font = '600 44px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.fillText('潍坊风筝人格测试', W / 2, 130);
+  ctx.fillText('潍坊风筝人格测试', W / 2, 128);
 
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.fillStyle = 'rgba(255,255,255,0.62)';
   ctx.font = '400 26px "PingFang SC", "Microsoft YaHei", sans-serif';
   ctx.fillText('—— 你的人生姿态，藏在一只风筝里', W / 2, 182);
 
-  // 圆形徽章
-  const cy = 400;
-  ctx.beginPath();
-  ctx.arc(W / 2, cy, 150, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(255,255,255,0.16)';
-  ctx.fill();
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = 'rgba(255,255,255,0.35)';
-  ctx.stroke();
-
-  drawContain(ctx, toolImg, W / 2 - 95, cy, 130);
-  drawContain(ctx, kiteImg, W / 2 + 95, cy, 130);
-  ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.font = '300 54px "PingFang SC", sans-serif';
-  ctx.fillText('×', W / 2, cy + 5);
-
-  // 主结论
+  // 主结论（风筝 × 工具，自适应字号）
+  const title = `${kiteItem} × ${toolItem}`;
+  const ts = fitFont(ctx, title, 70, 660);
   ctx.fillStyle = '#ffffff';
-  ctx.font = '700 76px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.fillText(`${toolItem} × ${kiteItem}`, W / 2, 640);
-
-  // 定位句
-  ctx.fillStyle = '#ffffff';
-  ctx.font = '500 34px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.fillText(`${toolR.top.tagline}，${kiteR.top.tagline}`, W / 2, 780);
+  ctx.fillText(title, W / 2, 1000);
 
   // 底部
-  ctx.fillStyle = 'rgba(255,255,255,0.9)';
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
   ctx.font = '500 30px "PingFang SC", "Microsoft YaHei", sans-serif';
   ctx.fillText('长按保存 · 测测你的风筝人格', W / 2, 1250);
   ctx.fillStyle = 'rgba(255,255,255,0.6)';
@@ -231,6 +224,16 @@ async function buildPoster() {
 
   // 转成图片
   document.getElementById('poster-img').src = canvas.toDataURL('image/png');
+}
+
+function fitFont(ctx, text, baseSize, maxWidth) {
+  let size = baseSize;
+  ctx.font = `700 ${size}px "PingFang SC", "Microsoft YaHei", sans-serif`;
+  while (ctx.measureText(text).width > maxWidth && size > 28) {
+    size -= 2;
+    ctx.font = `700 ${size}px "PingFang SC", "Microsoft YaHei", sans-serif`;
+  }
+  return size;
 }
 
 function loadImg(src) {
