@@ -88,20 +88,18 @@ function showResult() {
   const toolR = decide(TOOLS, rates);
   const kiteR = decide(KITES, rates);
 
-  const toolTitle = toolR.tie ? `${toolR.top.key} · ${toolR.second.key}` : toolR.top.key;
-  const kiteTitle = kiteR.tie ? `${kiteR.top.key} · ${kiteR.second.key}` : kiteR.top.key;
   const toolItem = toolR.tie ? `${toolR.top.item} · ${toolR.second.item}` : toolR.top.item;
   const kiteItem = kiteR.tie ? `${kiteR.top.item} · ${kiteR.second.item}` : kiteR.top.item;
 
-  document.getElementById('result-headline').textContent = `${toolTitle} × ${kiteTitle}`;
-  document.getElementById('result-sub').textContent = `${toolItem} × ${kiteItem}`;
+  document.getElementById('result-headline').textContent = `${toolItem} × ${kiteItem}`;
+  document.getElementById('result-sub').textContent = '这就是你的风筝人格';
 
   document.getElementById('tool-card').innerHTML = renderTraitCards(toolR);
   document.getElementById('kite-card').innerHTML = renderTraitCards(kiteR);
 
   const easter = [];
-  if (!toolR.tie) easter.push(`${toolR.second.item}（${toolR.second.key}）`);
-  if (!kiteR.tie) easter.push(`${kiteR.second.item}（${kiteR.second.key}）`);
+  if (!toolR.tie) easter.push(`${toolR.second.item}`);
+  if (!kiteR.tie) easter.push(`${kiteR.second.item}`);
   document.getElementById('easter').textContent = easter.length ? `你的隐藏副特质：${easter.join('、')}` : '';
 
   show('result');
@@ -117,10 +115,10 @@ function traitCardHtml(t) {
     <div class="trait-card" style="--c:${t.color}">
       <div class="trait-top">
         <span class="trait-emoji">${t.emoji}</span>
-        <span class="trait-name">${t.item} · ${t.key}</span>
+        <span class="trait-name">${t.item}</span>
         <span class="trait-tagline">${t.tagline}</span>
       </div>
-      <div class="trait-desc">${t.desc}</div>
+      <div class="trait-desc">${t.result}</div>
     </div>`;
 }
 
@@ -135,8 +133,6 @@ function buildPoster() {
   const toolR = decide(TOOLS, rates);
   const kiteR = decide(KITES, rates);
 
-  const toolTitle = toolR.tie ? `${toolR.top.key}·${toolR.second.key}` : toolR.top.key;
-  const kiteTitle = kiteR.tie ? `${kiteR.top.key}·${kiteR.second.key}` : kiteR.top.key;
   const toolItem = toolR.tie ? `${toolR.top.item}·${toolR.second.item}` : toolR.top.item;
   const kiteItem = kiteR.tie ? `${kiteR.top.item}·${kiteR.second.item}` : kiteR.top.item;
 
@@ -193,11 +189,7 @@ function buildPoster() {
   // 主结论
   ctx.fillStyle = '#ffffff';
   ctx.font = '700 76px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.fillText(`${toolTitle} × ${kiteTitle}`, W / 2, 640);
-
-  ctx.fillStyle = 'rgba(255,255,255,0.82)';
-  ctx.font = '400 32px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.fillText(`${toolItem} × ${kiteItem}`, W / 2, 700);
+  ctx.fillText(`${toolItem} × ${kiteItem}`, W / 2, 640);
 
   // 定位句
   ctx.fillStyle = '#ffffff';
