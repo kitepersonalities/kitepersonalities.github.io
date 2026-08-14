@@ -88,31 +88,44 @@ function showResult() {
   const toolR = decide(TOOLS, rates);
   const kiteR = decide(KITES, rates);
 
-  const toolItem = toolR.tie ? `${toolR.top.item} · ${toolR.second.item}` : toolR.top.item;
-  const kiteItem = kiteR.tie ? `${kiteR.top.item} · ${kiteR.second.item}` : kiteR.top.item;
+  // 主人格只取最高分（并列也只取一个），副人格 = 第二名
+  const toolItem = toolR.top.item;
+  const kiteItem = kiteR.top.item;
 
+  // 主视觉：风筝在前，工具在后
   document.getElementById('result-hero').innerHTML = `
-    <img src="images/${toolR.top.img}.webp" alt="${toolR.top.item}">
+    <img src="images/${kiteR.top.img}.webp" alt="${kiteR.top.item}">
     <span class="hero-x">×</span>
-    <img src="images/${kiteR.top.img}.webp" alt="${kiteR.top.item}">`;
+    <img src="images/${toolR.top.img}.webp" alt="${toolR.top.item}">`;
 
-  document.getElementById('result-headline').textContent = `${toolItem} × ${kiteItem}`;
+  document.getElementById('result-headline').textContent = `${kiteItem} × ${toolItem}`;
   document.getElementById('result-sub').textContent = '这就是你的风筝人格';
 
-  document.getElementById('tool-card').innerHTML = renderTraitCards(toolR);
-  document.getElementById('kite-card').innerHTML = renderTraitCards(kiteR);
+  // 风筝（主人格 + 可点击副人格）
+  document.getElementById('kite-card').innerHTML = traitCardHtml(kiteR.top);
+  document.getElementById('kite-sub').innerHTML = subTraitHtml(kiteR.second, '风筝');
 
-  const easter = [];
-  if (!toolR.tie) easter.push(`${toolR.second.item}`);
-  if (!kiteR.tie) easter.push(`${kiteR.second.item}`);
-  document.getElementById('easter').textContent = easter.length ? `你的隐藏副特质：${easter.join('、')}` : '';
+  // 工具（主人格 + 可点击副人格）
+  document.getElementById('tool-card').innerHTML = traitCardHtml(toolR.top);
+  document.getElementById('tool-sub').innerHTML = subTraitHtml(toolR.second, '工具');
 
   show('result');
 }
 
-function renderTraitCards(r) {
-  const list = r.tie ? [r.top, r.second] : [r.top];
-  return list.map(t => traitCardHtml(t)).join('');
+function subTraitHtml(t, label) {
+  return `
+    <div class="sub-trait" style="--c:${t.color}" onclick="toggleSub(this)">
+      <div class="sub-trait-head">
+        <span class="sub-trait-label">副人格 · ${label}</span>
+        <span class="sub-trait-name">${t.item}</span>
+        <span class="sub-trait-arrow">▾</span>
+      </div>
+      <div class="sub-trait-body">${traitCardHtml(t)}</div>
+    </div>`;
+}
+
+function toggleSub(el) {
+  el.classList.toggle('open');
 }
 
 function traitCardHtml(t) {

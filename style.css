@@ -231,7 +231,29 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .trait-tagline { font-size: 13px; color: var(--c, var(--sky-deep)); font-weight: 600; }
 .trait-desc { font-size: 15px; line-height: 1.75; color: #3d3d46; }
 
-.easter { margin-top: 8px; font-size: 14px; color: var(--accent); text-align: center; min-height: 20px; }
+.sub-trait {
+  margin-top: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.sub-trait-head {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  background: rgba(0,0,0,.03);
+  border-radius: 999px;
+  transition: background .15s ease;
+}
+.sub-trait-head:hover { background: rgba(0,0,0,.06); }
+.sub-trait-name { font-weight: 600; color: var(--c, var(--sky-deep)); }
+.sub-trait-arrow { font-size: 12px; transition: transform .2s ease; }
+.sub-trait.open .sub-trait-arrow { transform: rotate(180deg); }
+.sub-trait-body { display: none; margin-top: 10px; }
+.sub-trait.open .sub-trait-body { display: block; }
 
 #result .btn-primary { margin-top: 24px; }
 
