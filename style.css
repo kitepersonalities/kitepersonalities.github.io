@@ -84,22 +84,24 @@ button { font-family: inherit; cursor: pointer; border: none; }
 }
 .ornament.flip { transform: rotate(180deg); }
 
-.kite-scene { margin: 22px auto 6px; }
-.kite {
-  width: min(220px, 58%);
-  height: auto;
-  animation: kite-float 3.6s ease-in-out infinite;
-  filter: drop-shadow(0 10px 16px rgba(150, 90, 30, .18));
+.kite-cloud {
+  position: relative;
+  height: 250px;
+  margin: 16px auto 4px;
 }
-.kite-body { fill: #C73E2B; stroke: #E7B84B; stroke-width: 3; }
-.kite-bone { stroke: #E7B84B; stroke-width: 2.5; }
-.kite-tail { fill: none; stroke: #C73E2B; stroke-width: 3; stroke-linecap: round; }
-.kite-motif { fill: #2F7D6D; }
-.kite-hub { fill: #E7B84B; }
+.cloud-kite {
+  position: absolute;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 16px rgba(150, 90, 30, .18));
+  animation: kite-float 4s ease-in-out infinite;
+}
+.ck-1 { width: 180px; top: 0; left: 4%; rotate: -6deg; }
+.ck-2 { width: 100px; top: 96px; right: 8%; rotate: 7deg; animation-delay: .5s; animation-duration: 3.4s; }
+.ck-3 { width: 140px; top: 142px; left: 8%; rotate: 5deg; animation-delay: 1s; animation-duration: 3.8s; }
 
 @keyframes kite-float {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-9px) rotate(2deg); }
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -9px; }
 }
 
 .start-title {
@@ -188,6 +190,20 @@ button { font-family: inherit; cursor: pointer; border: none; }
 
 /* ---------- 结果 ---------- */
 #result { padding-top: 12px; }
+.result-hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 6px 0 16px;
+}
+.result-hero img {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,.12));
+}
+.hero-x { font-size: 32px; font-weight: 300; color: var(--ink-soft); }
 .result-headline { font-size: 34px; font-weight: 800; text-align: center; letter-spacing: 1px; }
 .result-sub { text-align: center; margin-top: 8px; font-size: 16px; color: var(--ink-soft); }
 
@@ -202,8 +218,9 @@ button { font-family: inherit; cursor: pointer; border: none; }
   box-shadow: 0 4px 14px rgba(0,0,0,.05);
   border-left: 5px solid var(--c, var(--sky));
 }
-.trait-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.trait-emoji { font-size: 28px; line-height: 1; }
+.trait-top { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.trait-img { width: 56px; height: 56px; object-fit: contain; border-radius: 12px; background: rgba(0,0,0,.03); }
+.trait-meta { display: flex; flex-direction: column; gap: 2px; }
 .trait-name { font-size: 17px; font-weight: 700; }
 .trait-tagline { font-size: 13px; color: var(--c, var(--sky-deep)); font-weight: 600; }
 .trait-desc { font-size: 15px; line-height: 1.75; color: #3d3d46; }

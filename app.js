@@ -91,6 +91,11 @@ function showResult() {
   const toolItem = toolR.tie ? `${toolR.top.item} · ${toolR.second.item}` : toolR.top.item;
   const kiteItem = kiteR.tie ? `${kiteR.top.item} · ${kiteR.second.item}` : kiteR.top.item;
 
+  document.getElementById('result-hero').innerHTML = `
+    <img src="images/${toolR.top.item}.png" alt="${toolR.top.item}">
+    <span class="hero-x">×</span>
+    <img src="images/${kiteR.top.item}.png" alt="${kiteR.top.item}">`;
+
   document.getElementById('result-headline').textContent = `${toolItem} × ${kiteItem}`;
   document.getElementById('result-sub').textContent = '这就是你的风筝人格';
 
@@ -114,9 +119,11 @@ function traitCardHtml(t) {
   return `
     <div class="trait-card" style="--c:${t.color}">
       <div class="trait-top">
-        <span class="trait-emoji">${t.emoji}</span>
-        <span class="trait-name">${t.item}</span>
-        <span class="trait-tagline">${t.tagline}</span>
+        <img class="trait-img" src="images/${t.item}.png" alt="${t.item}">
+        <div class="trait-meta">
+          <span class="trait-name">${t.item}</span>
+          <span class="trait-tagline">${t.tagline}</span>
+        </div>
       </div>
       <div class="trait-desc">${t.result}</div>
     </div>`;
