@@ -92,9 +92,9 @@ function showResult() {
   const kiteItem = kiteR.tie ? `${kiteR.top.item} · ${kiteR.second.item}` : kiteR.top.item;
 
   document.getElementById('result-hero').innerHTML = `
-    <img src="images/${toolR.top.item}.webp" alt="${toolR.top.item}">
+    <img src="images/${toolR.top.img}.webp" alt="${toolR.top.item}">
     <span class="hero-x">×</span>
-    <img src="images/${kiteR.top.item}.webp" alt="${kiteR.top.item}">`;
+    <img src="images/${kiteR.top.img}.webp" alt="${kiteR.top.item}">`;
 
   document.getElementById('result-headline').textContent = `${toolItem} × ${kiteItem}`;
   document.getElementById('result-sub').textContent = '这就是你的风筝人格';
@@ -119,7 +119,7 @@ function traitCardHtml(t) {
   return `
     <div class="trait-card" style="--c:${t.color}">
       <div class="trait-top">
-        <img class="trait-img" src="images/${t.item}.webp" alt="${t.item}">
+        <img class="trait-img" src="images/${t.img}.webp" alt="${t.item}">
         <div class="trait-meta">
           <span class="trait-name">${t.item}</span>
           <span class="trait-tagline">${t.tagline}</span>
@@ -135,7 +135,7 @@ function openPoster() {
   show('poster');
 }
 
-function buildPoster() {
+async function buildPoster() {
   const { rates } = computeScores();
   const toolR = decide(TOOLS, rates);
   const kiteR = decide(KITES, rates);
@@ -149,6 +149,12 @@ function buildPoster() {
   canvas.height = H * S;
   const ctx = canvas.getContext('2d');
   ctx.scale(S, S);
+
+  // 加载素材图
+  const [toolImg, kiteImg] = await Promise.all([
+    loadImg(`images/${toolR.top.img}.webp`),
+    loadImg(`images/${kiteR.top.img}.webp`),
+  ]);
 
   // 背景渐变
   const g = ctx.createLinearGradient(0, 0, W, H);
@@ -186,9 +192,8 @@ function buildPoster() {
   ctx.strokeStyle = 'rgba(255,255,255,0.35)';
   ctx.stroke();
 
-  ctx.font = '110px "Segoe UI Emoji", "Apple Color Emoji", sans-serif';
-  ctx.fillText(toolR.top.emoji, W / 2 - 95, cy + 5);
-  ctx.fillText(kiteR.top.emoji, W / 2 + 95, cy + 5);
+  drawContain(ctx, toolImg, W / 2 - 95, cy, 130);
+  drawContain(ctx, kiteImg, W / 2 + 95, cy, 130);
   ctx.fillStyle = 'rgba(255,255,255,0.55)';
   ctx.font = '300 54px "PingFang SC", sans-serif';
   ctx.fillText('×', W / 2, cy + 5);
@@ -213,6 +218,22 @@ function buildPoster() {
 
   // 转成图片
   document.getElementById('poster-img').src = canvas.toDataURL('image/png');
+}
+
+function loadImg(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error('图片加载失败: ' + src));
+    img.src = src;
+  });
+}
+
+function drawContain(ctx, img, cx, cy, size) {
+  const s = Math.min(size / img.width, size / img.height);
+  const w = img.width * s;
+  const h = img.height * s;
+  ctx.drawImage(img, cx - w / 2, cy - h / 2, w, h);
 }
 
 function roundRect(ctx, x, y, w, h, r) {
