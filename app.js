@@ -164,9 +164,10 @@ async function buildPoster() {
   ctx.scale(S, S);
 
   // 加载素材图
-  const [toolImg, kiteImg] = await Promise.all([
+  const [toolImg, kiteImg, qrImg] = await Promise.all([
     loadImg(`images/${toolR.top.img}.webp`),
     loadImg(`images/${kiteR.top.img}.webp`),
+    loadImg('images/qrcode.png'),
   ]);
 
   // 背景：纯色，跟随风筝的浅色
@@ -211,13 +212,18 @@ async function buildPoster() {
   ctx.fillStyle = '#2B2B33';
   ctx.fillText(title, W / 2, 1000);
 
-  // 底部
-  ctx.fillStyle = 'rgba(43,43,51,0.82)';
+  // 底部：提示识别二维码 + 二维码
+  const qrSize = 150, gap = 18;
+  const tipText = '识别二维码，测测你的风筝人格';
   ctx.font = '500 30px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.fillText('长按保存 · 测测你的风筝人格', W / 2, 1250);
-  ctx.fillStyle = 'rgba(43,43,51,0.5)';
-  ctx.font = '400 26px "PingFang SC", sans-serif';
-  ctx.fillText('kitepersonalities.github.io', W / 2, 1296);
+  const tw = ctx.measureText(tipText).width;
+  const total = tw + gap + qrSize;
+  const startX = (W - total) / 2;
+  ctx.textAlign = 'left';
+  ctx.fillStyle = 'rgba(43,43,51,0.82)';
+  ctx.fillText(tipText, startX, 1245);
+  drawContain(ctx, qrImg, startX + tw + gap + qrSize / 2, 1245, qrSize);
+  ctx.textAlign = 'center';
 
   // 转成图片
   document.getElementById('poster-img').src = canvas.toDataURL('image/png');
@@ -259,20 +265,11 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-function downloadPoster() {
-  const canvas = document.getElementById('poster-canvas');
-  const link = document.createElement('a');
-  link.download = '我的风筝人格.png';
-  link.href = canvas.toDataURL('image/png');
-  link.click();
-}
-
 // ---------- 初始化 ----------
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-start').onclick = start;
   document.getElementById('btn-prev').onclick = prev;
   document.getElementById('btn-next').onclick = next;
   document.getElementById('btn-poster').onclick = openPoster;
-  document.getElementById('btn-save').onclick = downloadPoster;
   document.querySelectorAll('.btn-retest').forEach(b => b.onclick = start);
 });

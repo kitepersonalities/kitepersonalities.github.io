@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>潍坊风筝人格测试</title>
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
   <div class="shell">
@@ -42,6 +42,7 @@
         <button class="btn-primary" id="btn-start">开始测试</button>
 
         <div class="start-foot">14 道情景题 · 约 2 分钟</div>
+        <div class="site-pv"><span id="busuanzi_container_site_pv" style="display:none">本站已被访问 <span id="busuanzi_value_site_pv"></span> 次</span></div>
 
         <svg class="ornament flip" viewBox="0 0 320 28" aria-hidden="true">
           <line x1="12" y1="14" x2="308" y2="14" stroke="#C73E2B" stroke-width="1.5"/>
@@ -89,18 +90,16 @@
 
     <!-- 海报 -->
     <div class="view" id="poster">
-      <div class="poster-tip">👇 长按图片保存到相册</div>
       <img class="poster-img" id="poster-img" alt="我的风筝人格海报">
       <canvas id="poster-canvas" style="display:none"></canvas>
-      <div class="poster-actions">
-        <button class="btn-primary" id="btn-save">保存图片</button>
-        <button class="btn-link btn-retest">再测一次</button>
-      </div>
+      <div class="poster-save-hint">长按图片即可保存到相册</div>
+      <button class="btn-link btn-retest">再测一次</button>
     </div>
 
   </div>
 
-  <script src="data.js?v=7"></script>
-  <script src="app.js?v=7"></script>
+  <script src="data.js?v=8"></script>
+  <script src="app.js?v=8"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.js"></script>
 </body>
 </html>
