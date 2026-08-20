@@ -117,6 +117,13 @@ button { font-family: inherit; cursor: pointer; border: none; }
   color: #B32D1F;
 }
 
+.start-author {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #a08c6b;
+  letter-spacing: 1px;
+}
+
 .start-intro {
   margin: 20px auto 30px;
   font-size: 16px;

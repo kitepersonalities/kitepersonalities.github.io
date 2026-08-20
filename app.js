@@ -221,9 +221,14 @@ async function buildPoster() {
   const startX = (W - total) / 2;
   ctx.textAlign = 'left';
   ctx.fillStyle = 'rgba(43,43,51,0.82)';
-  ctx.fillText(tipText, startX, 1245);
-  drawContain(ctx, qrImg, startX + tw + gap + qrSize / 2, 1245, qrSize);
+  ctx.fillText(tipText, startX, 1215);
+  drawContain(ctx, qrImg, startX + tw + gap + qrSize / 2, 1215, qrSize);
   ctx.textAlign = 'center';
+
+  // 网址小字
+  ctx.fillStyle = 'rgba(43,43,51,0.5)';
+  ctx.font = '400 24px "PingFang SC", "Microsoft YaHei", sans-serif';
+  ctx.fillText('kitepersonalities.github.io', W / 2, 1310);
 
   // 转成图片
   document.getElementById('poster-img').src = canvas.toDataURL('image/png');
