@@ -200,7 +200,7 @@ async function buildPoster() {
   // 测试名
   ctx.fillStyle = '#2B2B33';
   ctx.font = '600 44px "PingFang SC", "Microsoft YaHei", sans-serif';
-  ctx.fillText('潍坊风筝人格测试', W / 2, 128);
+  ctx.fillText('你的灵魂，是哪只古法风筝？', W / 2, 128);
 
   ctx.fillStyle = 'rgba(43,43,51,0.6)';
   ctx.font = '400 26px "PingFang SC", "Microsoft YaHei", sans-serif';
