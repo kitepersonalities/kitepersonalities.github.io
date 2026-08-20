@@ -169,11 +169,8 @@ async function buildPoster() {
     loadImg(`images/${kiteR.top.img}.webp`),
   ]);
 
-  // 背景渐变（风筝在前 → 工具）
-  const g = ctx.createLinearGradient(0, 0, W, H);
-  g.addColorStop(0, kiteR.top.color);
-  g.addColorStop(1, toolR.top.color);
-  ctx.fillStyle = g;
+  // 背景：纯色，跟随风筝的浅色
+  ctx.fillStyle = kiteR.top.bg || kiteR.top.color;
   ctx.fillRect(0, 0, W, H);
 
   // 顶部柔光
@@ -189,10 +186,10 @@ async function buildPoster() {
   // 小工具图（右下点缀）
   drawContain(ctx, toolImg, W * 0.62, 780, 180);
 
-  // 渐变蒙版：让图在文字区域渐隐
+  // 渐变蒙版：让图在文字区域渐隐（浅色，配浅背景）
   const mask = ctx.createLinearGradient(0, 600, 0, 1140);
-  mask.addColorStop(0, 'rgba(0,0,0,0)');
-  mask.addColorStop(1, 'rgba(0,0,0,0.62)');
+  mask.addColorStop(0, 'rgba(255,255,255,0)');
+  mask.addColorStop(1, 'rgba(255,255,255,0.78)');
   ctx.fillStyle = mask;
   ctx.fillRect(0, 600, W, 540);
 
@@ -200,25 +197,25 @@ async function buildPoster() {
   ctx.textBaseline = 'middle';
 
   // 测试名
-  ctx.fillStyle = 'rgba(255,255,255,0.94)';
+  ctx.fillStyle = '#2B2B33';
   ctx.font = '600 44px "PingFang SC", "Microsoft YaHei", sans-serif';
   ctx.fillText('潍坊风筝人格测试', W / 2, 128);
 
-  ctx.fillStyle = 'rgba(255,255,255,0.62)';
+  ctx.fillStyle = 'rgba(43,43,51,0.6)';
   ctx.font = '400 26px "PingFang SC", "Microsoft YaHei", sans-serif';
   ctx.fillText('—— 你的人生姿态，藏在一只风筝里', W / 2, 182);
 
   // 主结论（风筝 × 工具，自适应字号）
   const title = `${kiteItem} × ${toolItem}`;
   const ts = fitFont(ctx, title, 70, 660);
-  ctx.fillStyle = '#ffffff';
+  ctx.fillStyle = '#2B2B33';
   ctx.fillText(title, W / 2, 1000);
 
   // 底部
-  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.fillStyle = 'rgba(43,43,51,0.82)';
   ctx.font = '500 30px "PingFang SC", "Microsoft YaHei", sans-serif';
   ctx.fillText('长按保存 · 测测你的风筝人格', W / 2, 1250);
-  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.fillStyle = 'rgba(43,43,51,0.5)';
   ctx.font = '400 26px "PingFang SC", sans-serif';
   ctx.fillText('kitepersonalities.github.io', W / 2, 1296);
 
