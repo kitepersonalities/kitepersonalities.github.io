@@ -68,7 +68,9 @@ function computeScores() {
   QUESTIONS.forEach((q, qi) => {
     const idx = answers[qi];
     if (idx == null) return;
-    q.options[idx].traits.forEach(k => raw[k]++);
+    const opt = q.options[idx];
+    (opt.traits || []).forEach(k => raw[k]++);
+    (opt.anti || []).forEach(k => raw[k]--);
   });
   const rates = {};
   ALL_TRAITS.forEach(t => rates[t.key] = raw[t.key] / t.count);
